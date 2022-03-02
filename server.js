@@ -2,7 +2,6 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
 const bodyParser = require("body-parser");
 const app = express();
 require("dotenv").config();
@@ -11,18 +10,19 @@ require("dotenv").config();
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
-const redirectURI = "https://developers.google.com/oauthplayground";
 
-const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI);
-oAuth2Client.setCredentials({refreshToken: refreshToken});
+const emailRouter = {
+    ["ZANE"]: "zanecosmo@gmail.com",
+    ["GAGE"]: "primelandandhome@gmail.com"
+};
 
-const buildEmail = async (email) => {
+const buildEmail = async (sender) => {
     try {
         const transportData = {
             service: "gmail",
             auth: {
                 type: "OAuth2",
-                user: "zanecosmo@gmail.com",
+                user: "zanessmtpserver@gmail.com",
                 clientId: clientId,
                 clientSecret: clientSecret,
                 refreshToken: refreshToken
@@ -32,19 +32,19 @@ const buildEmail = async (email) => {
         let transporter = nodemailer.createTransport(transportData);
 
         const message = {
-            from: "zanecosmo <zanecosmo@gmail.com>",
-            to: "zanecosmo@gmail.com",
-            subject: "E-MAIL SENT",
-            text: `NAME: ${email.name}, E-MAIL: ${email.email}, MESSAGE: ${email.message}`
+            from: "Zane's SMTP Server <zanessmtpserver@gmail.com>",
+            to: emailRouter[sender.identifier],
+            subject: "CONTACT FORM SUBMISSION",
+            text: `NAME: ${sender.name}, E-MAIL: ${sender.email}, MESSAGE: ${sender.message}`
         }
 
         const result = await transporter.sendMail(message);
         return result;
 
     } catch (error) {return error};
-}
+};
 
-const corsOptions = {origin: ["http://127.0.0.1:5501"]};
+const corsOptions = {origin: ["http://127.0.0.1:5501"]}; // will later include website url, mine and gages
 
 app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());

@@ -57,7 +57,7 @@ app.post("/send-email", cors(corsOptions), (req, res) => {
 });
 
 const server = http.createServer(app);
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 server.listen(port, () => console.log(`LISTENING on PORT ${port}`));
 

@@ -4,7 +4,7 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const app = express();
-require("dotenv").config();
+if (process.env.NODE_ENV === "development" ) require("dotenv").config();
 
 
 const clientId = process.env.CLIENT_ID;

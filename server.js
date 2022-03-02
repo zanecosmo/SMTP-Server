@@ -11,6 +11,10 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
 
+console.log(`CLIENT-ID: ${process.env.CLIENT_ID}`);
+console.log(`CLIENT-SECRET: ${process.env.CLIENT_SECRET}`);
+console.log(`REFRESH-TOKEN: ${process.env.REFRESH_TOKEN}`);
+
 const emailRouter = {
     ["ZANE"]: "zanecosmo@gmail.com",
     ["GAGE"]: "primelandandhome@gmail.com"
@@ -50,6 +54,7 @@ app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());
 
 app.post("/send-email", cors(corsOptions), (req, res) => {
+    console.log("RECIEVED REQUEST");
     buildEmail(req.body)
         .then((result) => console.log(result))
         .catch((error) => console.log(error.message));

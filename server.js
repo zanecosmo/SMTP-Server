@@ -4,16 +4,16 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const app = express();
-if (process.env.NODE_ENV === "development" ) require("dotenv").config();
+require("dotenv").config();
 
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
 
-// console.log(`CLIENT-ID: ${process.env.CLIENT_ID}`);
-// console.log(`CLIENT-SECRET: ${process.env.CLIENT_SECRET}`);
-// console.log(`REFRESH-TOKEN: ${process.env.REFRESH_TOKEN}`);
+console.log(`CLIENT-ID: ${process.env.CLIENT_ID}`);
+console.log(`CLIENT-SECRET: ${process.env.CLIENT_SECRET}`);
+console.log(`REFRESH-TOKEN: ${process.env.REFRESH_TOKEN}`);
 
 const emailRouter = {
     ["ZANE"]: "zanecosmo@gmail.com",
@@ -48,12 +48,10 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-const corsOptions = {origin: ["https://676760828-atari-embeds.googleusercontent.com"]}; // will later include website url, mine and gages
-
-app.options("/send-email", cors(corsOptions));
+app.options("/send-email", cors());
 app.use(bodyParser.json());
 
-app.post("/send-email", cors(corsOptions), (req, res) => {
+app.post("/send-email", cors(), (req, res) => {
     buildEmail(req.body)
         .then((result) => console.log(result))
         .catch((error) => console.log(error.message));

@@ -11,9 +11,9 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
 
-console.log(`CLIENT-ID: ${process.env.CLIENT_ID}`);
-console.log(`CLIENT-SECRET: ${process.env.CLIENT_SECRET}`);
-console.log(`REFRESH-TOKEN: ${process.env.REFRESH_TOKEN}`);
+// console.log(`CLIENT-ID: ${process.env.CLIENT_ID}`);
+// console.log(`CLIENT-SECRET: ${process.env.CLIENT_SECRET}`);
+// console.log(`REFRESH-TOKEN: ${process.env.REFRESH_TOKEN}`);
 
 const emailRouter = {
     ["ZANE"]: "zanecosmo@gmail.com",
@@ -36,9 +36,9 @@ const buildEmail = async (sender) => {
         let transporter = nodemailer.createTransport(transportData);
 
         const message = {
-            from: "Zane's SMTP Server <zanessmtpserver@gmail.com>",
+            from: "Contact Form Submission <zanessmtpserver@gmail.com>",
             to: emailRouter[sender.identifier],
-            subject: "CONTACT FORM SUBMISSION",
+            subject: `Message From: ${sender.name}`,
             text: `NAME: ${sender.name}, E-MAIL: ${sender.email}, MESSAGE: ${sender.message}`
         }
 
@@ -48,13 +48,12 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-const corsOptions = {origin: ["http://127.0.0.1:5501"]}; // will later include website url, mine and gages
+const corsOptions = {origin: ["http://127.0.0.1:5501", "https://676760828-atari-embeds.googleusercontent.com"]}; // will later include website url, mine and gages
 
 app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());
 
 app.post("/send-email", cors(corsOptions), (req, res) => {
-    console.log("RECIEVED REQUEST");
     buildEmail(req.body)
         .then((result) => console.log(result))
         .catch((error) => console.log(error.message));

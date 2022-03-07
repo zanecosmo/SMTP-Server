@@ -48,7 +48,7 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-const corsOptions = {origin: ["http://127.0.0.1:5501", "https://676760828-atari-embeds.googleusercontent.com"]}; // will later include website url, mine and gages
+const corsOptions = {origin: ["https://676760828-atari-embeds.googleusercontent.com"]}; // will later include website url, mine and gages
 
 app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());

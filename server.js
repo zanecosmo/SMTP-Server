@@ -48,11 +48,17 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-app.options("/send-email", cors());
+const corsOptions = {
+    origin: "*",
+    methods: "POST",
+    preflightContinue: true
+};
+
+app.options("/send-email", cors(corsOptions));
 // app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/send-email", cosr(), (req, res) => {
+app.post("/send-email", cors(corsOptions), (req, res) => {
     buildEmail(req.body)
         .then((result) => console.log(result))
         .catch((error) => console.log(error.message));

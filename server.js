@@ -49,10 +49,10 @@ const buildEmail = async (sender) => {
 };
 
 app.options("/send-email", cors());
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/send-email", (req, res) => {
+app.post("/send-email", cosr(), (req, res) => {
     buildEmail(req.body)
         .then((result) => console.log(result))
         .catch((error) => console.log(error.message));

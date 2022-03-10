@@ -48,14 +48,9 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-const corsOptions = {
-    origin: "*",
-    methods: "POST",
-    preflightContinue: true
-};
+const corsOptions = {origin: "http://127.0.0.1:5500"};
 
 app.options("/send-email", cors(corsOptions));
-// app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/send-email", cors(corsOptions), (req, res) => {

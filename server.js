@@ -11,10 +11,6 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
 
-console.log(`CLIENT-ID: ${process.env.CLIENT_ID}`);
-console.log(`CLIENT-SECRET: ${process.env.CLIENT_SECRET}`);
-console.log(`REFRESH-TOKEN: ${process.env.REFRESH_TOKEN}`);
-
 const emailRouter = {
     ["ZANE"]: "zanecosmo@gmail.com",
     ["GAGE"]: "primelandandhome@gmail.com"
@@ -48,7 +44,7 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-const corsOptions = {origin: "http://127.0.0.1:5500"};
+const corsOptions = {origin: "*"};
 
 app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());

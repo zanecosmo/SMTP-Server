@@ -1,15 +1,17 @@
+require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const app = express();
-// require("dotenv").config();
 
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const refreshToken = process.env.REFRESH_TOKEN;
+
+console.log(refreshToken);
 
 const emailRouter = {
     ["ZANE"]: "zanecosmo@gmail.com",

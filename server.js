@@ -46,7 +46,8 @@ const buildEmail = async (sender) => {
     } catch (error) {return error};
 };
 
-const corsOptions = {origin: "https://zanecosmo.com"};
+// const corsOptions = {origin: "https://zanecosmo.com"};
+const corsOptions = {origin: "http://127.0.0.1:5501"};
 // const corsOptions = {origin: "http://127.0.0.1:5500"}
 
 app.options("/send-email", cors(corsOptions));

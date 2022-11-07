@@ -1,9 +1,11 @@
 require("dotenv").config();
 const express = require("express");
-const http = require("http");
+const https = require("https");
+const fs = require("fs");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
+const { fstat } = require("fs");
 const app = express();
 
 
@@ -61,7 +63,12 @@ app.post("/send-email", cors(corsOptions), (req, res) => {
     res.send(req.body);
 });
 
-const server = http.createServer(app);
+const options = {
+    key: fs.readFileSync("server.key"),
+    cert: fs.readFileSync("server.cert")
+}
+
+const server = https.createServer(options, app);
 const port = process.env.PORT;
 
 server.listen(port, () => console.log(`LISTENING on PORT ${port}`));

@@ -63,10 +63,10 @@ app.post("/send-email", cors(corsOptions), (req, res) => {
     res.send(req.body);
 });
 
-const options = {
-    key: fs.readFileSync("server.key"),
-    cert: fs.readFileSync("server.cert")
-}
+// const options = {
+//     key: fs.readFileSync("server.key"),
+//     cert: fs.readFileSync("server.cert")
+// }
 
 const server = https.createServer(options, app);
 const port = process.env.PORT;

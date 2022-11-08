@@ -68,7 +68,7 @@ app.post("/send-email", cors(corsOptions), (req, res) => {
 //     cert: fs.readFileSync("server.cert")
 // }
 
-const server = https.createServer(options, app);
+const server = https.createServer(app);
 const port = process.env.PORT;
 
 server.listen(port, () => console.log(`LISTENING on PORT ${port}`));

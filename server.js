@@ -1,11 +1,10 @@
 require("dotenv").config();
 const express = require("express");
-const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
-const { fstat } = require("fs");
 const app = express();
 
 
@@ -49,8 +48,6 @@ const buildEmail = async (sender) => {
 };
 
 const corsOptions = {origin: "https://zanecosmo.com"};
-// const corsOptions = {origin: "http://127.0.0.1:5501"};
-// const corsOptions = {origin: "http://127.0.0.1:5500"}
 
 app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());
@@ -67,13 +64,12 @@ app.post("/send-email", cors(corsOptions), (req, res) => {
     res.send(req.body);
 });
 
-// const options = {
-//     key: fs.readFileSync("server.key"),
-//     cert: fs.readFileSync("server.cert")
-// }
+const options = {
+     key: fs.readFileSync("private.pem"),
+     cert: fs.readFileSync("cert.pem")
+};
 
-const server = http.createServer(app);
+const server = https.createServer(options, app);
 const port = process.env.PORT;
 
 server.listen(port, () => console.log(`LISTENING on PORT ${port}`));
-

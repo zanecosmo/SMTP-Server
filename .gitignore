@@ -1,3 +1,5 @@
 node_modules
 .env
 get-tokens.js
+private.pem
+cert.pem

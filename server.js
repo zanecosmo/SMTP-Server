@@ -55,7 +55,7 @@ const corsOptions = {origin: "https://zanecosmo.com"};
 app.options("/send-email", cors(corsOptions));
 app.use(bodyParser.json());
 
-app.get("/status", cors(corsOptions), (req, res) => {
+app.get("/status", (req, res) => {
     console.log("SERVER IS RUNNING");
 });
 

@@ -12,4 +12,4 @@ Purpose:
 As of yet, the server only responds to requests from specific private origins, so it is not an exposed API.
 
 ## About
-The server is hosted on Heroku, uses an Express/Node.js backend, and employs several common libraries, including Nodemailer, Dotenv, CORS Middleware, and Google's Gmail API.
+The server is hosted using an AWS EC2 Instance, uses an Express/Node.js backend, and employs several common libraries, including Nodemailer, Dotenv, CORS Middleware, and Google's Gmail API.
